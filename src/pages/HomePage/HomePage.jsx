@@ -1,19 +1,17 @@
 import { Box, Container, Flex, Tooltip } from "@chakra-ui/react";
-import React from "react";
-import { AiFillHome } from "react-icons/ai";
+// import React from "react";
+// import { AiFillHome } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
-import Feedpost from "../../components/FeedPosts/Feedpost";
+// import Feedpost from "../../components/FeedPosts/Feedpost";
+import Feedposts from "../../components/FeedPosts/Feedposts";
 
 const HomePage = () => {
   return (
     <Container maxW={"container.lg"}>
       <Flex gap={40}>
         <Box flex={2} py={10} >
-          <Feedpost />
-          <Feedpost />
-          <Feedpost />
-          <Feedpost />
+          <Feedposts />
         </Box>
 
 		Suggested users

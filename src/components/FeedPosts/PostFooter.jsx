@@ -11,7 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-const PostFooter = () => {
+import {
+
+  NotificationsLogo,
+  UnlikeLogo,
+} from "../../assets/constants";
+
+const PostFooter = ({username}) => { 
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(1000);
 
@@ -28,7 +34,7 @@ const PostFooter = () => {
     <Box my={8}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={"4"}>
         <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
-          {/* {!liked ? <NotificationsLogo /> : <unlikedLogo />} */}
+          {!liked ? (<NotificationsLogo/>) : (<UnlikeLogo />)}
         </Box>
 
         <Box cursor={"pointer"} fontSize={18}>
@@ -39,7 +45,7 @@ const PostFooter = () => {
         {likes} likes
       </Text>
       <Text fontSize={"sm"} fontWeight={600}>
-        SisBek_21{" "}
+        {username}{" "}
         <Text as="span" fontWeight={400}>
           Feeling good
         </Text>
