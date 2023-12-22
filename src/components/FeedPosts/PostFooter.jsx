@@ -12,12 +12,12 @@ import {
 import { useState } from "react";
 
 import {
-
+  CommentLogo,
   NotificationsLogo,
   UnlikeLogo,
 } from "../../assets/constants";
 
-const PostFooter = ({username}) => { 
+const PostFooter = ({ username, isProfilePage }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(1000);
 
@@ -31,28 +31,33 @@ const PostFooter = ({username}) => {
     }
   };
   return (
-    <Box my={8}>
+    <Box my={8} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={"4"}>
         <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
-          {!liked ? (<NotificationsLogo/>) : (<UnlikeLogo />)}
+          {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
 
         <Box cursor={"pointer"} fontSize={18}>
-          <commentLogo />
+          <CommentLogo />
         </Box>
       </Flex>
       <Text fontSize={"sm"} fontWeight={600}>
         {likes} likes
       </Text>
-      <Text fontSize={"sm"} fontWeight={600}>
-        {username}{" "}
-        <Text as="span" fontWeight={400}>
-          Feeling good
-        </Text>
-      </Text>
-      <Text fontSize={"sm"} color={"gray"}>
-        view all 1,000 comments
-      </Text>
+      {!isProfilePage && (
+        <>
+          <Text fontSize={"sm"} fontWeight={600}>
+            {username}{" "}
+            <Text as="span" fontWeight={400}>
+              Feeling good
+            </Text>
+          </Text>
+          <Text fontSize={"sm"} color={"gray"}>
+            view all 1,000 comments
+          </Text> 
+        </>
+      )}
+
       <Flex
         alignItems={"center"}
         gap={2}
@@ -74,7 +79,7 @@ const PostFooter = ({username}) => {
               _hover={{ color: "white" }}
               bg={"transparent"}
             >
-              Post 
+              Post
             </Button>
           </InputRightElement>
         </InputGroup>

@@ -17,7 +17,7 @@ const Sidebar = () => {
     {
       icon: <AiFillHome size={25} />,
       text: "Home",
-      link: "/",
+      link: "/auth",
     },
 
     {
@@ -41,7 +41,7 @@ const Sidebar = () => {
     {
       icon: <Avatar size={"sm"} name="Sisay Bekele" src="/profilepic.png" />,
       text: "Profile",
-      link: "/asaprogrammer",
+      link: "/auth",
     },
   ];
   return (
@@ -65,6 +65,7 @@ const Sidebar = () => {
         >
           <InstagramLogo />
         </Link>
+       
         <Link
           to={"/"}
           as={RouterLink}

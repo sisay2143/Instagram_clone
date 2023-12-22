@@ -2,7 +2,7 @@ import { Box, Image } from '@chakra-ui/react'
 // import React from 'react'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
-const Feedpost = ({img, username, avatar}) => {
+const Feedpost = ({ username, img, avatar}) => {
   return (
     <>
     <PostHeader username = {username} avatar = {avatar } />

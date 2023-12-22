@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 // import Feedpost from "../../components/FeedPosts/Feedpost";
 import Feedposts from "../../components/FeedPosts/Feedposts";
+import SuggestedUsers from "../../components/SuggestedUsers/SuggestedUsers";
 
 const HomePage = () => {
   return (
     <Container maxW={"container.lg"}>
-      <Flex gap={40}>
-        <Box flex={2} py={10} >
+      <Flex gap={20}>
+        <Box flex={2} py={10}>
           <Feedposts />
         </Box>
-
-		Suggested users
+        <SuggestedUsers />
       </Flex>
 
       <Tooltip
