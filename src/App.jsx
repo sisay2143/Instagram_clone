@@ -6,9 +6,14 @@ import PageLayout from "./Layout/PageLayout/PageLayout";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 // import { useAuthState } from "react-firebase-hooks/auth"
 import useAuthStore from "./store/authStore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
   const authUser = useAuthStore((state) => state.user);
+
+  function App() {
+    const [authuser] = useAuthState(auth);
+  }
 
   return (
     <PageLayout>
