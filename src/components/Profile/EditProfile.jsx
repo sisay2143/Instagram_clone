@@ -18,7 +18,7 @@ import {
 import { useRef, useState } from "react";
 import useAuthStore from "../../store/authStore";
 import usePreviewImg from "../../hooks/usePreviewImg";
-import useEditProfile from "../../hooks/useEditProfile";
+import useEditProfile from "../../hooks/useEditProfile"; 
 import useShowToast from "../../hooks/useShowToast";
 
 const EditProfile = ({ isOpen, onClose }) => {
@@ -32,6 +32,7 @@ const EditProfile = ({ isOpen, onClose }) => {
   const { handleImageChange, selectedFile, setSelectedFile } = usePreviewImg();
   const { isUpdating, editProfile } = useEditProfile();
   const showToast = useShowToast();
+  //sisay bekele bayisa instagram clone in firebase 
 
   const handleEditProfile = async () => {
     try {

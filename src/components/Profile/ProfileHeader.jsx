@@ -10,6 +10,7 @@ import {
 import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import EditProfile from "./EditProfile";
+import useFollowUser from "../../hooks/useFollowUser";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
@@ -18,7 +19,9 @@ const ProfileHeader = () => {
     authUser && authUser.username === userProfile.username;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(userProfile?.uid);
+  const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(
+    userProfile?.uid
+  );
   const visitingAnotherProfileAndAuth =
     authUser && authUser.username !== userProfile.username;
 
@@ -55,7 +58,7 @@ const ProfileHeader = () => {
                 color={"black"}
                 _hover={{ bg: "whiteAlpha.800" }}
                 size={{ base: "xs", md: "sm" }}
-                  onClick={onOpen}
+                onClick={onOpen}
               >
                 Edit Profile
               </Button>
@@ -69,9 +72,10 @@ const ProfileHeader = () => {
                 color={"white"}
                 _hover={{ bg: "blue.600" }}
                 size={{ base: "xs", md: "sm" }}
-                //   onClick={onOpen}
+                onClick={onOpen}
+                isLoading={isUpdating}  
               >
-                Follow
+                {isFollowing ? "Unfollow" : "Follow"}
               </Button>
             </Flex>
           )}
@@ -103,7 +107,7 @@ const ProfileHeader = () => {
         </Flex>
         <Text fontSize={"sm"}>{userProfile.bio}</Text>
       </VStack>
-      {isOpen && <EditProfile isOpen= {isOpen} onClose ={onclose} /> }
+      {isOpen && <EditProfile isOpen={isOpen} onClose={onclose} />}
     </Flex>
   );
 };
