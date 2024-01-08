@@ -3,8 +3,11 @@
 import { Box, Flex, Link, Text, VStack } from "@chakra-ui/react";
 import SuggestedHeader from "./SuggestedHeader";
 import SuggestedUser from "./SuggestedUser";
+import useGetSuggestedUsers from "../../hooks/useGetSuggestedUsers";
 
 const SuggestedUsers = () => {
+  const { isloading, suggestedUsers} = useGetSuggestedUsers();
+  if(isloading) return null;
   return (
     <div>
       <VStack py={8} px={6} gap={2}>
@@ -24,25 +27,26 @@ const SuggestedUsers = () => {
           </Text>
         </Flex>
 
-        <SuggestedUser
-          name=" Dani Man"
-          follower={5676}
-          avatar="https://bit.ly/dan-abramov"
-        />
-        <SuggestedUser
-          name=" rooney wayne"
-          follower={2388}
-          avatar="https://bit.ly/dan-abramov"
-        />
-        <SuggestedUser
-          name=" paul shools"
-          follower={1394}
-          avatar="https://bit.ly/dan-abramov"
-        />
+        {suggestedUsers.map((user) => (
+				<SuggestedUser user={user} key={user.id} />
+			))}
 
-        <Box fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
+        
+        <Flex
+						// onClick={handleLogout}
+						alignItems={"center"}
+						gap={4}
+						_hover={{ bg: "whiteAlpha.400" }}
+						borderRadius={6}
+						py={600}
+						w={{ base: 10, md: "full" }}
+						mt={"auto"}
+						justifyContent={{ base: "center", md: "flex-start" }}
+					>
+						<Text fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
           C 2023 Built By @Sisbek
-        </Box>
+        </Text>
+					</Flex>
       </VStack>
     </div>
   );

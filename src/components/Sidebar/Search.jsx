@@ -82,6 +82,8 @@ const Search = () => {
 
 export default Search;
 
+ 
+
 // COPY AND PASTE AS THE STARTER CODE FOR THE SEARCH COMPONENT
 // import { Box, Flex, Tooltip } from "@chakra-ui/react";
 // import { SearchLogo } from "../../assets/constants";

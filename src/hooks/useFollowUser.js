@@ -11,7 +11,7 @@ const useFollowUser = (userId) => {
   const authUser = useAuthStore((state) => state.user);
   const setAuthUser = useAuthStore((state) => state.setUser);
   const { userProfile, setUserProfile } = useUserProfileStore();
-  const showToast = useShowToast();
+  const showToast = useShowToast(); 
 
   const handleFollowUser = async () => {
     setIsUpdating(true);
