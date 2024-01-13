@@ -1,6 +1,6 @@
 import {
   Avatar,
-  Box,
+  Button,
   Divider,
   Flex,
   GridItem,
@@ -14,15 +14,53 @@ import {
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
-// import React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Comment from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
+import useUserProfileStore from "../../store/userProfileStore";
+import useAuthStore from "../../store/authStore";
+import useShowToast from "../../hooks/useShowToast";
+import { useState } from "react";
+import { deleteObject, ref } from "firebase/storage";
+import { firestore, storage } from "../../firebase/firebase";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import usePostStore from "../../store/postStore";
+// import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const authUser = useAuthStore((state) => state.user);
+  const showToast = useShowToast();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deletePost = usePostStore((state) => state.deletePost);
+  const decrementPostsCount = useUserProfileStore((state) => state.deletePost);
+
+  const handleDeletePost = async () => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    if (isDeleting) return;
+
+    try {
+      const imageRef = ref(storage, `posts/${post.id}`);
+      await deleteObject(imageRef);
+      const userRef = doc(firestore, "users", authUser.uid);
+      await deleteDoc(doc(firestore, "posts", post.id));
+
+      await updateDoc(userRef, {
+        posts: arrayRemove(post.id),
+      });
+
+      deletePost(post.id);
+      decrementPostsCount(post.id);
+      showToast("Success", "Post deleted successfully", "success");
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <>
@@ -103,7 +141,7 @@ const ProfilePost = ({ post }) => {
                 <Image src={post.imageURL} alt="profile post" /> 
                 {/* <Image src={img} alt="profile post" /> */}
               </Flex>
-              <Box
+              <Flex
                 flex={1}
                 flexDir={"column"}
                 px={10}
@@ -112,26 +150,20 @@ const ProfilePost = ({ post }) => {
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Flex alignItems={"center"} gap={4}>
                     <Avatar
-                      // src={userProfile.profilePicURL}
-                      src="/profilepic.png"
+                      src={userProfile.profilePicURL}
+                      // src="/profilepic.png"
                       size={"sm"}
                       name="As a Programmer"
                     />
                     <Text fontWeight={"bold"} fontSize={12}>
-                      {/* {userProfile.username} */}
-                      asaprogrammer
+                      {userProfile.username}
+                      {/* asaprogrammer */}
                     </Text>
                   </Flex>
 
-                  <Box
-                    _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                    borderRadius={4}
-                    p={1}
-                  >
-                    <MdDelete size={20} cursor="pointer" />
-                  </Box>
+             
 
-                  {/* {authUser?.uid === userProfile.uid && (
+                  {authUser?.uid === userProfile.uid && (
                     <Button
                       size={"sm"}
                       bg={"transparent"}
@@ -139,11 +171,11 @@ const ProfilePost = ({ post }) => {
                       borderRadius={4}
                       p={1}
                       onClick={handleDeletePost}
-                      isLoading={isDeleting}
+                      // isLoading={isDeleting}
                     >
                       <MdDelete size={20} cursor="pointer" />
                     </Button>
-                  )} */}
+                  )}
                 </Flex>
                 <Divider my={4} bg={"gray.500"} />
 
@@ -171,7 +203,7 @@ const ProfilePost = ({ post }) => {
                 <Divider my={4} bg={"gray.8000"} />
 
                 <PostFooter isProfilePage={true} />
-              </Box>
+              </Flex>
             </Flex>
           </ModalBody>
         </ModalContent>
