@@ -21,7 +21,7 @@ import { MdDelete } from "react-icons/md";
 import Comment from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
 
-const ProfilePost = ({ img }) => {
+const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -66,7 +66,7 @@ const ProfilePost = ({ img }) => {
         </Flex>
 
         <Image
-          src={img}
+          src={post.imageURL}
           alt="profile post"
           w={"100%"}
           h={"100%"}
@@ -100,8 +100,8 @@ const ProfilePost = ({ img }) => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                {/* <Image src={post.imageURL} alt="profile post" />  */}
-                <Image src={img} alt="profile post" />
+                <Image src={post.imageURL} alt="profile post" /> 
+                {/* <Image src={img} alt="profile post" /> */}
               </Flex>
               <Box
                 flex={1}
@@ -165,61 +165,7 @@ const ProfilePost = ({ img }) => {
                     profilepic="/img3.png"
                     text={"looks good"}
                   />
-                  <Comment
-                    CreatedAt="1d ago"
-                    username="asaprogrammer"
-                    profilepic="/img2.png"
-                    text={"woow so cute"}
-                  />
-                  <Comment
-                    CreatedAt="21h ago"
-                    username="Kinemaster_"
-                    profilepic="/profilepic.png"
-                    text={"looks good"}
-                  />
-                  <Comment
-                    CreatedAt="1d ago"
-                    username="asaprogrammer"
-                    profilepic="/profilepic.png"
-                    text={"woow so cute"}
-                  />
-                  <Comment
-                    CreatedAt="11h ago"
-                    username="Kinemaster_"
-                    profilepic="/img4.png"
-                    text={"looks good"}
-                  />
-                  <Comment
-                    CreatedAt="3h ago"
-                    username="asaprogrammer"
-                    profilepic="/profilepic.png"
-                    text={"woow so cute"}
-                  />
-
-                  <Comment
-                    CreatedAt="1d ago"
-                    username="Kinemaster_"
-                    profilepic="/profilepic.png"
-                    text={"looks good"}
-                  />
-                  <Comment
-                    CreatedAt="1d ago"
-                    username="asaprogrammer"
-                    profilepic="/profilepic.png"
-                    text={"woow so cute"}
-                  />
-                     <Comment
-                    CreatedAt="12h ago"
-                    username="Kinemaster_"
-                    profilepic="/profilepic.png"
-                    text={"looks good"}
-                  />
-                    <Comment
-                    CreatedAt="2h ago"
-                    username="asaprogrammer"
-                    profilepic="/profilepic.png"
-                    text={"woow so cute"}
-                  />
+            
                 </VStack>
 
                 <Divider my={4} bg={"gray.8000"} />
