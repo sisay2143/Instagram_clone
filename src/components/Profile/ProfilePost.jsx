@@ -27,7 +27,11 @@ import { deleteObject, ref } from "firebase/storage";
 import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
+<<<<<<< HEAD
 import Caption from "../Comment/Caption";
+=======
+// import Caption from "../Comment/Caption";
+>>>>>>> 2b3dd16e5a43453af78cdb681da90fb5118ab975
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -138,7 +142,11 @@ const ProfilePost = ({ post }) => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
+<<<<<<< HEAD
                 <Image src={post.imageURL} alt="profile post" />
+=======
+                <Image src={post.imageURL} alt="profile post" /> 
+>>>>>>> 2b3dd16e5a43453af78cdb681da90fb5118ab975
                 {/* <Image src={img} alt="profile post" /> */}
               </Flex>
               <Flex
@@ -161,6 +169,11 @@ const ProfilePost = ({ post }) => {
                     </Text>
                   </Flex>
 
+<<<<<<< HEAD
+=======
+             
+
+>>>>>>> 2b3dd16e5a43453af78cdb681da90fb5118ab975
                   {authUser?.uid === userProfile.uid && (
                     <Button
                       size={"sm"}
@@ -183,17 +196,37 @@ const ProfilePost = ({ post }) => {
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
+<<<<<<< HEAD
                   {/* CAPTION */}
                   {post.caption && <Caption post={post} />}
                   {/* COMMENTS */}
                   {post.comments.map((comment) => (
                     <Comment key={comment.id} comment={comment} />
                   ))}
+=======
+                  <Comment
+                    CreatedAt="2h ago"
+                    username="sisbek__"
+                    profilepic="/img1.png"
+                    text={"Great images from unspalsh"}
+                  />
+                  <Comment
+                    CreatedAt="1h ago"
+                    username="Kinemaster_"
+                    profilepic="/img3.png"
+                    text={"looks good"}
+                  />
+            
+>>>>>>> 2b3dd16e5a43453af78cdb681da90fb5118ab975
                 </VStack>
 
                 <Divider my={4} bg={"gray.8000"} />
 
+<<<<<<< HEAD
                 <PostFooter isProfilePage={true} post={post} />
+=======
+                <PostFooter isProfilePage={true} />
+>>>>>>> 2b3dd16e5a43453af78cdb681da90fb5118ab975
               </Flex>
             </Flex>
           </ModalBody>
