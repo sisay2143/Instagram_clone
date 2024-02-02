@@ -11,9 +11,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 function App() {
   const authUser = useAuthStore((state) => state.user);
 
-  function App() {
-    const [authuser] = useAuthState(auth);
-  }
+  // function App() {
+  //   const [authuser] = useAuthState(auth);
+  // }
 
   return (
     <PageLayout>

@@ -27,7 +27,7 @@ import { deleteObject, ref } from "firebase/storage";
 import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import usePostStore from "../../store/postStore";
-// import Caption from "../Comment/Caption";
+import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -138,7 +138,7 @@ const ProfilePost = ({ post }) => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Image src={post.imageURL} alt="profile post" /> 
+                <Image src={post.imageURL} alt="profile post" />
                 {/* <Image src={img} alt="profile post" /> */}
               </Flex>
               <Flex
@@ -160,8 +160,6 @@ const ProfilePost = ({ post }) => {
                       {/* asaprogrammer */}
                     </Text>
                   </Flex>
-
-             
 
                   {authUser?.uid === userProfile.uid && (
                     <Button
@@ -185,26 +183,18 @@ const ProfilePost = ({ post }) => {
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
-                  <Comment
-                    CreatedAt="2h ago"
-                    username="sisbek__"
-                    profilepic="/img1.png"
-                    text={"Great images from unspalsh"}
-                  />
-                  <Comment
-                    CreatedAt="1h ago"
-                    username="Kinemaster_"
-                    profilepic="/img3.png"
-                    text={"looks good"}
-                  />
-            
+                   {/* CAPTION */}
+                   {post.caption && <Caption post={post} />}
+                  {/* COMMENTS */}
+                  {post.comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
                 </VStack>
-
                 <Divider my={4} bg={"gray.8000"} />
 
-                <PostFooter isProfilePage={true} />
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
-            </Flex>
+            </Flex>  
           </ModalBody>
         </ModalContent>
       </Modal>

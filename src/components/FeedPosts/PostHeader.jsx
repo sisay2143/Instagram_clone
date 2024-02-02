@@ -1,7 +1,8 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 // import React from "react";
 
-const PostHeader = ({ username, avatar }) => {
+const PostHeader = ({ post, creatorProfile }) => {
   return (
     <Flex
       justifyContent={"space-between"}
@@ -10,9 +11,15 @@ const PostHeader = ({ username, avatar }) => {
       my={2}
     >
       <Flex alignItems={"center"} gap={2}>
-        <Avatar src={avatar} alt="user profile pic" size={"sm"} />
-        {username}
+        <Link to={`/${creatorProfile.username}`} >
+        <Avatar src={creatorProfile.profilePicURL} alt="user profile pic" size={"sm"} />
+        </Link>
+        <Flex fontSize={12} fontWeight={"bold"} gap={2} >
+        <Link to={`/${creatorProfile.username}`} >
+        {creatorProfile.username}
+        </Link>   
         <Box color={"gray.500"}>.1w</Box>
+      </Flex>
       </Flex>
       <Box>
         <Text
