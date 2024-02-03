@@ -11,6 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { timeAgo } from "../../utils/timeAgo";
 
 import {
   CommentLogo,
@@ -19,21 +20,20 @@ import {
 } from "../../assets/constants";
 import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
+import CommentsModal from "../Modals/CommentsModal";
 
-const PostFooter = ({ post,  username, isProfilePage }) => {
-  
-
+const PostFooter = ({ post, username, isProfilePage, creatorProfile }) => {
   const { isCommenting, handlePostComment } = usePostComment();
-	const [comment, setComment] = useState("");
-	const authUser = useAuthStore((state) => state.user);
-	const commentRef = useRef(null);
-	const { handleLikePost, isLiked, likes} = useLikePost(post);
-	const { isOpen, onOpen, onClose } = useDisclosure();
+  const [comment, setComment] = useState("");
+  const authUser = useAuthStore((state) => state.user);
+  const commentRef = useRef(null);
+  const { handleLikePost, isLiked, likes } = useLikePost(post);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const handleSubmitComment = async () => {
-		await handlePostComment(post.id, comment);
-		setComment("");
-	};
+  const handleSubmitComment = async () => {
+    await handlePostComment(post.id, comment);
+    setComment("");
+  };
 
   return (
     <Box my={8} mt={"auto"}>
@@ -45,56 +45,64 @@ const PostFooter = ({ post,  username, isProfilePage }) => {
         <Box cursor={"pointer"} fontSize={18}>
           <CommentLogo />
         </Box>
-      </Flex>
+      </Flex> 
       <Text fontSize={"sm"} fontWeight={600}>
         {likes} likes
       </Text>
+      {isProfilePage && (
+        <Text fontSize={12} color={"gray"}>
+          posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
       {!isProfilePage && (
         <>
           <Text fontSize={"sm"} fontWeight={600}>
-            {username}{" "}
+            {creatorProfile?.username}{" "}
             <Text as="span" fontWeight={400}>
-              Feeling good
+              {post.caption}
             </Text>
           </Text>
-          <Text fontSize={"sm"} color={"gray"}>
-            view all 1,000 comments
-          </Text> 
+          {post.comments.length > 0 && (
+            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"} onClick={onOpen}>
+              view all {post.comments.length} comments
+            </Text>
+          )}
+          {isOpen ? <CommentsModal isOpen={isOpen} onClose={onclose} post={post} /> : null}
         </>
       )}
 
-     {authUser && (
-       <Flex
-       alignItems={"center"}
-       gap={2}
-       justifyContent={"space-between"}
-       w={"full"}
-     >
-       <InputGroup>
-         <Input
-           variant={"flushed"}
-           placeholder="Add a comment ..."
-           fontSize={14}
-           onChange={(e)=> setComment(e.target.value)}
-           value={comment}
-         />
-         <InputRightElement>
-           <Button
-             fontSize={14}
-             color={"blue.500"}
-             fontWeight={600}
-             cursor={"pointer"}
-             _hover={{ color: "white" }}
-             bg={"transparent"}
-             onClick={handleSubmitComment}
-             isLoading={iscomm}
-           >
-             Post
-           </Button>
-         </InputRightElement>
-       </InputGroup>
-     </Flex>
-     )}
+      {authUser && (
+        <Flex
+          alignItems={"center"}
+          gap={2}
+          justifyContent={"space-between"}
+          w={"full"}
+        >
+          <InputGroup>
+            <Input
+              variant={"flushed"}
+              placeholder="Add a comment ..."
+              fontSize={14}
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+            />
+            <InputRightElement>
+              <Button
+                fontSize={14}
+                color={"blue.500"}
+                fontWeight={600}
+                cursor={"pointer"}
+                _hover={{ color: "white" }}
+                bg={"transparent"}
+                onClick={handleSubmitComment}
+                isLoading={iscomm}
+              >
+                Post
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </Flex>
+      )}
     </Box>
   );
 };

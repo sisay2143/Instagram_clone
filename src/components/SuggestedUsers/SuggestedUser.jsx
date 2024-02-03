@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Flex, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Link, VStack } from "@chakra-ui/react";
 // import React from 'react'
 // import SuggestedHeader from "./SuggestedHeader";
 // import { useState } from "react";
@@ -24,11 +24,16 @@ const SuggestedUser = ({ user, setUser }) => {
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
+        <Link to ={`/${user.username}`}>
+
         <Avatar src={user.profilePicURL} size={"md"} />
+        </Link>
         <VStack spacing={1} alignItems={"flex-start"}>
+        <Link to ={`/${user.username}`}>
           <Box fontSize={12} fontWeight={"bold"}>
             {user.fullName}
           </Box>
+        </Link>
           <Box fontSize={11} color={"gray.500"}>
             {user.followers.length} followers
           </Box>

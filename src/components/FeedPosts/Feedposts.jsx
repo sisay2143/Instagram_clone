@@ -7,6 +7,7 @@ import {
   Flex,
   Skeleton,
   SkeletonCircle,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import useGetFeedPosts from "../../hooks/useGetFeedPosts";
@@ -33,6 +34,14 @@ const Feedposts = () => {
         ))}
       {!isLoading && posts.length> 0 && posts.map((post) => <Feedpost key = {post.id} post = {post} />)}
       
+      {!isLoading && posts.length === 0 && (
+				<>
+					<Text fontSize={"md"} color={"red.400"}>
+						Dayuum. Looks like you don&apos;t have any friends.
+					</Text>
+					<Text color={"red.400"}>Stop coding and go make some!!</Text>
+				</>
+			)}
    
     </Container>
   );
