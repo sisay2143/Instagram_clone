@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { timeAgo } from "../../utils/timeAgo";
+import { useRef } from "react";
+
 
 import {
   CommentLogo,
@@ -21,6 +23,7 @@ import {
 import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
 import CommentsModal from "../Modals/CommentsModal";
+import usePostComment from "../../hooks/usePostComment";
 
 const PostFooter = ({ post, username, isProfilePage, creatorProfile }) => {
   const { isCommenting, handlePostComment } = usePostComment();
@@ -38,7 +41,7 @@ const PostFooter = ({ post, username, isProfilePage, creatorProfile }) => {
   return (
     <Box my={8} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={"4"}>
-        <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
+        <Box onClick={handleLikePost} cursor={"pointer"} fontSize={18}>
           {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
 
@@ -95,7 +98,7 @@ const PostFooter = ({ post, username, isProfilePage, creatorProfile }) => {
                 _hover={{ color: "white" }}
                 bg={"transparent"}
                 onClick={handleSubmitComment}
-                isLoading={iscomm}
+                isLoading={isCommenting}
               >
                 Post
               </Button>
